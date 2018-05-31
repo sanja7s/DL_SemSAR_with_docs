@@ -26,7 +26,7 @@ def take_out_test_pred_and_gt_data(models_DIR, model_name, out_dir):
     data_dir = os.path.join(models_DIR, model_name)
     test_images_dir = os.path.join(data_dir, 'test')
 
-    res_images_dir = os.path.join(models_DIR, 'TEST7s2')
+    res_images_dir = os.path.join(models_DIR, 'TEST7s')
 
     files = os.listdir(res_images_dir)
     driver = gdal.GetDriverByName('GTiff')

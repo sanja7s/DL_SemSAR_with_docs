@@ -9,7 +9,6 @@ Project structure
 * src
 * manuscript
 * build
-* results
 
 The description of the structure and processing steps follows.
 
@@ -111,7 +110,6 @@ Once you have developed and tested the models, you can receive results of the be
 
 Source code
 ^^^^^^^^^^^
-
 * src
 
 	* postprocess-DL-res
@@ -136,7 +134,22 @@ Invoking *main.py* will run the preprocessing steps described above (see Preproc
 Postprocessing data after DL
 """"""""""""""""""""""""""""
 * postprocess-DL-res
-This will georefernce results (prediction .pngs) and place them under *data/DL_output*.
+
+The script *georef_and_copy_results.py* will georefernce results (prediction .pngs) and place them under *data/DL_output*. It will also crop the test files to the same dimensions as the predicitons (1024x1024) and copy all to corresponding folders in *DL_output*.
+
+
+
+
+Maunscript
+^^^^^^^^^^
+* manuscript
+
+	* abstract-rrsw2018
+	* paper
+
+Here are the latex sources or the links to them for the abstract and paper written from this work.
+
+
 
 
 
