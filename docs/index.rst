@@ -8,19 +8,7 @@ Welcome to Deep Learning on SAR data's documentation!
 
 .. toctree::
    :maxdepth: 2
-   :caption: Contents:
-
-   Project-description
-   How-to
 
    includeme
    
-
-
-Indices and tables
-==================
-
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
 

@@ -12,10 +12,7 @@ Welcome to Deep Learning on SAR data's documentation!
 
    Project-description
    How-to
-
-   includeme
    
-
 
 Indices and tables
 ==================
@@ -24,4 +21,3 @@ Indices and tables
 * :ref:`modindex`
 * :ref:`search`
 
-t
