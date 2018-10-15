@@ -10,8 +10,6 @@ Welcome to Deep Learning on SAR data's documentation!
    :maxdepth: 2
    :caption: Contents:
 
-   includeme
-
    Project-description
    How-to
    
