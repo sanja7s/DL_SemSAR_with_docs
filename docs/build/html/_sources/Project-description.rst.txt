@@ -2,7 +2,7 @@ Project description
 ===================
 
 
-In this project, we apply deep learning (DL) models to analyze SAR data.
+In this project, we apply deep learning (DL) models to classify (segment) SAR images.
 
 Introduction
 ------------
