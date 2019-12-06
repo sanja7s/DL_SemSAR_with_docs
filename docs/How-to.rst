@@ -1,14 +1,14 @@
-How to use this repo
+How To Use This Repo
 ====================
 
 
 Project structure
 -----------------
-* docs
 * data
 * src
 * manuscript
 * build
+* docs
 
 The description of the structure and processing steps follows.
 

@@ -1,6 +1,5 @@
 import tensorflow as tf
 from tensorflow.contrib import slim
-import resnet_v1
 
 def Upsampling(inputs,scale):
     return tf.image.resize_nearest_neighbor(inputs, size=[tf.shape(inputs)[1]*scale,  tf.shape(inputs)[2]*scale])
@@ -188,7 +187,7 @@ def build_frrn(inputs, num_classes, preset_model='FRRN-A'):
         # Upsampling Path 
         #####################
         pool_stream = Unpooling(pool_stream, 2)
-        pool_stream, res_stream = FullResolutionResidualUnit(pool_stream=pool_stream, res_stream=res_stream, n_filters_3=192, n_filters_1=32, pool_scale=17)
+        pool_stream, res_stream = FullResolutionResidualUnit(pool_stream=pool_stream, res_stream=res_stream, n_filters_3=192, n_filters_1=32, pool_scale=16)
         pool_stream, res_stream = FullResolutionResidualUnit(pool_stream=pool_stream, res_stream=res_stream, n_filters_3=192, n_filters_1=32, pool_scale=16)
 
         pool_stream = Unpooling(pool_stream, 2)
