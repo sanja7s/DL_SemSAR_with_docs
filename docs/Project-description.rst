@@ -81,19 +81,37 @@ As discussed in Project Description, we start from the existing reviews on seman
 DL methods tested
 
 - FC-DenseNets [FCDenseNets]_
+- DeepLabV3+ [DeepLabV3plus]_
+- U-Net [UNet]_
+- PSPNet [PSPNet]_
+- BiSeNet [BiSeNet]_
+- SegNet [SegNet]_
+- FRRN-B [FRRN-B]_
+
+
+Other DL methods available in the SemSegm suite 
+
 - DeepLabV3 [DeepLabV3]_
+- GCN [GCN]_
 - RefineNet [RefineNet]_
 - ICNet [ICNet]_
-- DeepLabV3+ [DeepLabV3plus]_
-- GCN [GCN]_
-
-
+- ...
 
 
 References
 ----------
 
 [FCDenseNets] Jégou, Simon, Michal Drozdzal, David Vazquez, Adriana Romero, and Yoshua Bengio. "The one hundred layers tiramisu: Fully convolutional densenets for semantic segmentation." In Computer Vision and Pattern Recognition Workshops (CVPRW), 2017 IEEE Conference on, pp. 1175-1183. IEEE, 2017.
+
+[FRRN-B] Pohlen, Tobias, Alexander Hermans, Markus Mathias, and Bastian Leibe. "Full-resolution residual networks for semantic segmentation in street scenes." In Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition, pp. 4151-4160. 2017.
+
+[SegNet] Badrinarayanan, Vijay, Alex Kendall, and Roberto Cipolla. "Segnet: A deep convolutional encoder-decoder architecture for image segmentation." IEEE transactions on pattern analysis and machine intelligence 39, no. 12 (2017): 2481-2495.
+
+[BiSeNet] Yu, Changqian, Jingbo Wang, Chao Peng, Changxin Gao, Gang Yu, and Nong Sang. "Bisenet: Bilateral segmentation network for real-time semantic segmentation." In Proceedings of the European Conference on Computer Vision (ECCV), pp. 325-341. 2018.
+
+[PSPNet] Zhao, Hengshuang, Jianping Shi, Xiaojuan Qi, Xiaogang Wang, and Jiaya Jia. "Pyramid scene parsing network." In Proceedings of the IEEE conference on computer vision and pattern recognition, pp. 2881-2890. 2017.
+
+[UNet] Ronneberger, Olaf, Philipp Fischer, and Thomas Brox. "U-net: Convolutional networks for biomedical image segmentation." In International Conference on Medical image computing and computer-assisted intervention, pp. 234-241. Springer, Cham, 2015.
 
 [DeepLabV3] Chen, Liang-Chieh, George Papandreou, Florian Schroff, and Hartwig Adam. "Rethinking atrous convolution for semantic image segmentation." arXiv preprint arXiv:1706.05587 (2017).
 
