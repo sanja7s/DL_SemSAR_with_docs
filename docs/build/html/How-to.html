@@ -59,8 +59,8 @@
 <p>The <em>data</em> folder holds all the data used in the project. Below, we discuss each of the subfolders under it.</p>
 <div class="section" id="sar-preprocessing">
 <h4>SAR preprocessing<a class="headerlink" href="#sar-preprocessing" title="Permalink to this headline">¶</a></h4>
-<ul>
-<li><p class="first">SAR_preprocess</p>
+<p>_SARprep:
+* SAR_preprocess</p>
 <blockquote>
 <div><ul class="simple">
 <li>orig-data</li>
@@ -68,8 +68,6 @@
 <li>finn_dem_WGS84.tif</li>
 </ul>
 </div></blockquote>
-</li>
-</ul>
 <p>This folder holds the data needed for the first step in the pipeline, i.e., for SAR data preprocessing. In this step, we take SAR images with two polarisation channels (single, such as HH or VV and cross-pol, such as HV and VH) and multilook, calibrate, terrain-flatten and terrain-correct them. Finally, we produce the resulting RGB composites of them so that each of the <em>Gamma0</em> channels is saved in the first two bands, and the corresponding digital elevation model (DEM) is saved in the last band.</p>
 <p><em>SAR_preprocess</em> holds original SAR images in <em>orig-data</em> and the DEM model <em>finn_dem_WGS84.tif</em> used for the terrain correction.</p>
 <p>SAR image preprocessing is performed using the ESA <em>snap tool</em>. The preprocessing graph <em>SAR_preprocessing_Graph_v1.xml</em>, which can be used by the tool, is found under <em>src/SAR-data-preprocess/code_snap</em>. You can perform the preprocessing by first opening the downloaded SAR images in SNAP (you can open even without decompressing them, i.e., in the original <em>.zip</em> format). Then select <em>Tools -&gt; Batch Processing</em> and press the second “+” sign from the top to populate the batch with all the images. After that, press <em>Load Graph</em> and open the graph file <em>SAR_preprocessing_Graph_v1.xml</em>. Make sure that the output directory points to <em>SAR_preprocess/RES</em> on your machine and that the type of output files selected under <em>Save as:</em> is <em>GeoTIFF-BigTIFF</em>. This is needed because the processing graph creates large RGB composites, the size of which is often more then 4GB. Then press <em>Run</em>. Depending on the number of input images and your machine, this might take several hours.</p>
@@ -159,7 +157,7 @@ In addition, each band should be <em>normalized</em> so that the distribution of
 </ul>
 <div class="section" id="sar-data-preprocessing">
 <h4>SAR data preprocessing<a class="headerlink" href="#sar-data-preprocessing" title="Permalink to this headline">¶</a></h4>
-<p>This folder holds only the .xml file for the processing graph to be used in SNAP, as described under SAR preprocessing (see <span class="xref std std-ref">SARprep</span>).</p>
+<p>This folder holds only the .xml file for the processing graph to be used in SNAP, as described under SAR preprocessing.</p>
 </div>
 <div class="section" id="preparing-data-for-dl">
 <h4>Preparing data for DL<a class="headerlink" href="#preparing-data-for-dl" title="Permalink to this headline">¶</a></h4>

@@ -28,7 +28,7 @@ The *data* folder holds all the data used in the project. Below, we discuss each
 
 SAR preprocessing
 """""""""""""""""
-.. _SARprep:
+_SARprep:
 * SAR_preprocess
 
 	* orig-data
@@ -108,7 +108,7 @@ Source code
 
 SAR data preprocessing 
 """"""""""""""""""""""
-This folder holds only the .xml file for the processing graph to be used in SNAP, as described under SAR preprocessing (see :ref:`SARprep`).
+This folder holds only the .xml file for the processing graph to be used in SNAP, as described under SAR preprocessing.
 
 
 Preparing data for DL 
@@ -118,6 +118,7 @@ Preparing data for DL
 	* main.py
 	* ...
 	* divide_train_test.py
+
 Invoking *main.py* will run the preprocessing steps described above (see Preprocesing for DL), and invoking *divide_train_test.py* will place those data in the right folder and proportions under *Semantic-Segmentation-Suite/Corine-Sentinel-DEM*.
 
 
