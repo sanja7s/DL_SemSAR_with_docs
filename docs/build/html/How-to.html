@@ -45,20 +45,6 @@
 <li>build</li>
 </ul>
 <p>The description of the structure and processing steps follows.</p>
-<div class="section" id="documentation">
-<h3>Documentation<a class="headerlink" href="#documentation" title="Permalink to this headline">¶</a></h3>
-<ul class="simple">
-<li>docs<ul>
-<li>_build</li>
-<li>_static</li>
-<li>_templates</li>
-<li>conf.py</li>
-<li>.txt</li>
-</ul>
-</li>
-</ul>
-<p>The <em>docs</em> folder holds resources for this documentation you are reading. We use <em>sphinx</em> + <em>.rst</em> to create it. In <em>_build</em> you can find the root documentation file <em>index.html</em>. Starting from it, you get the links to the rest of the documentation.</p>
-</div>
 <div class="section" id="datasets">
 <h3>Datasets<a class="headerlink" href="#datasets" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
@@ -70,7 +56,7 @@
 </ul>
 </li>
 </ul>
-<p>The <em>data</em> folder holds all the data used in the project.</p>
+<p>The <em>data</em> folder holds all the data used in the project. Below, we discuss each of the subfolders under it.</p>
 <div class="section" id="sar-preprocessing">
 <h4>SAR preprocessing<a class="headerlink" href="#sar-preprocessing" title="Permalink to this headline">¶</a></h4>
 <ul>
@@ -84,9 +70,10 @@
 </div></blockquote>
 </li>
 </ul>
-<p>In this step, we take SAR images with two polarisation channels (single, such as HH or VV and cross-pol, such as HV and VH) and multilook, calibrate, terrain-flatten and terrain-correct them. Finally, we produce resulting RGB composites of them so that each of the <em>Gamma0</em> channels is saved in the first two bands, and the corresponding digital elevation model (DEM) is saved in the last band.</p>
-<p><em>SAR_preprocess</em> holds original SAR images in <em>orig-data</em> and the DEM model <em>finn_dem_WGS84.tif</em> used to preprocess them (for terrain correction). The preprocessing graph <em>SAR_preprocessing_Graph_v1.xml</em> is found under <em>src/SAR-data-preprocess/code_snap</em>. You can perform the preprocessing by first opening the downloaded SAR images in SNAP (you can open even without decompressing them, i.e., in original <em>.zip</em> format). Then select <em>Tools -&gt; Batch Processing</em> and press the secod + sign from the top to populate the batch with all the images. After that, press <em>Load Graph</em> and open the graph file <em>SAR_preprocessing_Graph_v1.xml</em>. Make sure that the output directory points to <em>SAR_preprocess/RES</em> on your machine and that the type of output files selected under <em>Save as:</em> is <em>GeoTIFF-BigTIFF</em>. This is needed because the processing graph creates large RGB composites, the size of which is often more then 4GB. Then press <em>Run</em>. Depending on the number of input images and your machine, this might take several hours.</p>
-<p>After they are produced, the resulting RGB composite tiff files can be moved to <em>DL_prepare/prepared-SAR-tiffs</em> for additional preprocessing required for the DL models.</p>
+<p>This folder holds the data needed for the first step in the pipeline, i.e., for SAR data preprocessing. In this step, we take SAR images with two polarisation channels (single, such as HH or VV and cross-pol, such as HV and VH) and multilook, calibrate, terrain-flatten and terrain-correct them. Finally, we produce the resulting RGB composites of them so that each of the <em>Gamma0</em> channels is saved in the first two bands, and the corresponding digital elevation model (DEM) is saved in the last band.</p>
+<p><em>SAR_preprocess</em> holds original SAR images in <em>orig-data</em> and the DEM model <em>finn_dem_WGS84.tif</em> used for the terrain correction.</p>
+<p>SAR image preprocessing is performed using the ESA <em>snap tool</em>. The preprocessing graph <em>SAR_preprocessing_Graph_v1.xml</em>, which can be used by the tool, is found under <em>src/SAR-data-preprocess/code_snap</em>. You can perform the preprocessing by first opening the downloaded SAR images in SNAP (you can open even without decompressing them, i.e., in the original <em>.zip</em> format). Then select <em>Tools -&gt; Batch Processing</em> and press the second “+” sign from the top to populate the batch with all the images. After that, press <em>Load Graph</em> and open the graph file <em>SAR_preprocessing_Graph_v1.xml</em>. Make sure that the output directory points to <em>SAR_preprocess/RES</em> on your machine and that the type of output files selected under <em>Save as:</em> is <em>GeoTIFF-BigTIFF</em>. This is needed because the processing graph creates large RGB composites, the size of which is often more then 4GB. Then press <em>Run</em>. Depending on the number of input images and your machine, this might take several hours.</p>
+<p>After they are produced, the resulting RGB composite tiff files can be MOVED TO <em>DL_prepare/prepared-SAR-tiffs</em> for the additional preprocessing step required by the DL models.</p>
 </div>
 <div class="section" id="preprocesing-for-dl">
 <h4>Preprocesing for DL<a class="headerlink" href="#preprocesing-for-dl" title="Permalink to this headline">¶</a></h4>
@@ -103,11 +90,11 @@
 </div></blockquote>
 </li>
 </ul>
-<p>It is a good idea to prepare images for DL models in the following way. Most of the models expect square-shaped images, so we crop each tiff file into a number of square pieces that have size around 1000x1000 pixels, but not smaller then 800 pixels in any of the dimensions (the number is chosen in our case also because of the limitation of the GPU computing resources, and it can be changed on other machines).</p>
+<p>It is generally a good idea to prepare the images for the DL models in the following way. Most of the models expect square-shaped images, so we crop each tiff file into a number of square pieces that have the size around 1000x1000 pixels, but not smaller then 800 pixels in any of the dimensions (the number is chosen in our case also because of the limitation of the GPU computing resources, and it can be changed on other machines).</p>
 <p>Converting SAR band values into <em>decibels</em> is a regular SAR preprocessing step, however, due to a more convenient implementation like this, we perform that step under preprocessing for DL.
-In addition, each band should be <em>normalized</em> so that the distribution of the pixel values would resemble a Gaussian distribution centered at zero. This makes convergence faster while training the network. Data normalization is done by subtracting the mean from each pixel, and then dividing the result by the standard deviation. In addition, given that our DL models expect pixel values in the range (0,255), we then apply <em>scaling</em> the normalized data to that range. Such preprocessed data are then found in the folder <em>train</em>.</p>
-<p>Also, we need to provide labels for each training/test image, and this is done by cropping pieces of the Corine mask (found in the folder <em>Corine</em>) of the corresponding geographic area. Resulting label images are stored in the folder <em>labels</em>. Note that training/test images and corresponding labels have exactly the same names, as that is what the DL models expect for their input.</p>
-<p>Finally, the ready data are fed into <em>DL_models</em> directory using the script <em>divide_train_test.py</em>.</p>
+In addition, each band should be <em>normalized</em> so that the distribution of the pixel values would resemble a Gaussian distribution centered at zero. This makes convergence faster while training the DL models. Data normalization is done by subtracting the mean from each pixel, and then dividing the result by the standard deviation. In addition, given that our DL models expect pixel values in the range (0,255), we then apply <em>scaling</em> the normalized data to that range. Such preprocessed data are then found in the folder <em>train</em>.</p>
+<p>Also, we need to provide the labels for each training/test image, and this is done by cropping corrsponding pieces of the Corine mask (found in the folder <em>Corine</em>). The pieces should correspond to the geographic area of the respective train/test images. Resulting label images are stored in the folder <em>labels</em>. Note that training/test images and corresponding labels have <em>exactly the same names</em>, as that is what the DL models suite we use expects for their input.</p>
+<p>Finally, the ready data are fed into <em>DL_models</em> directory using the script <em>divide_train_test.py</em>. This scripts will split the data into train, test, and validation sets.</p>
 </div>
 <div class="section" id="deep-learning-models">
 <h4>Deep Learning models<a class="headerlink" href="#deep-learning-models" title="Permalink to this headline">¶</a></h4>
@@ -120,8 +107,8 @@ In addition, each band should be <em>normalized</em> so that the distribution of
 </div></blockquote>
 </li>
 </ul>
-<p>All the models that we use are included in the <a class="reference external" href="https://github.com/GeorgeSeif/Semantic-Segmentation-Suite">Semantic Segmentation Suite GitHub repository</a>.</p>
-<p>In order for one to use the repository, the data should be placed in a folder within the root directory <em>Semantic-Segmentation-Suite</em> and structured as follows:</p>
+<p>All the models that we use come from the <a class="reference external" href="https://github.com/GeorgeSeif/Semantic-Segmentation-Suite">Semantic Segmentation Suite GitHub repository</a>.</p>
+<p>In order for one to use this semantic segmentation suite, the data should be placed in a folder within the root directory <em>Semantic-Segmentation-Suite</em> (we call this folder <em>Corine-Sentinel-DEM</em>) and structured as follows:</p>
 <ul class="simple">
 <li><dl class="first docutils">
 <dt>Semantic-Segmentation-Suite/Corine-Sentinel-DEM</dt>
@@ -139,7 +126,7 @@ In addition, each band should be <em>normalized</em> so that the distribution of
 </li>
 </ul>
 <p>Invoking the script <em>src/prepare-data-for-DL/divide_train_test.py</em> populates the folder structure above. The file <em>class_dict.csv</em> provides the mapping between the class names and the label rgb colors.</p>
-<p>With such a structure ready, we can invoke and test a number of the algorithms available under the suite using its <em>main.py</em> script with appropriate arguments.</p>
+<p>With such a structure ready, we can invoke and test a number of the algorithms available under the suite using its <em>main.py</em> script with the appropriate arguments. The <em>Readme</em> file of the <em>Semantic-Segmentation-Suite</em> itself provides more information on this for each model.</p>
 </div>
 <div class="section" id="deep-learning-results">
 <h4>Deep Learning Results<a class="headerlink" href="#deep-learning-results" title="Permalink to this headline">¶</a></h4>
@@ -197,19 +184,19 @@ In addition, each band should be <em>normalized</em> so that the distribution of
 <p>The script <em>georef_and_copy_results.py</em> will georefernce results (prediction .pngs) and place them under <em>data/DL_output</em>. It will also crop the test files to the same dimensions as the predicitons (1024x1024) and copy all to corresponding folders in <em>DL_output</em>.</p>
 </div>
 </div>
-<div class="section" id="maunscript">
-<h3>Maunscript<a class="headerlink" href="#maunscript" title="Permalink to this headline">¶</a></h3>
-<ul>
-<li><p class="first">manuscript</p>
-<blockquote>
-<div><ul class="simple">
-<li>abstract-rrsw2018</li>
-<li>paper</li>
+<div class="section" id="documentation">
+<h3>Documentation<a class="headerlink" href="#documentation" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>docs<ul>
+<li>_build</li>
+<li>_static</li>
+<li>_templates</li>
+<li>conf.py</li>
+<li>.txt</li>
 </ul>
-</div></blockquote>
 </li>
 </ul>
-<p>Here are the latex sources or the links to them for the abstract and paper written from this work.</p>
+<p>The <em>docs</em> folder holds resources for this documentation you are reading. We use <em>sphinx</em> + <em>.rst</em> to create it. In <em>_build</em> you can find the root documentation file <em>index.html</em>. Starting from it, you get the links to the rest of the documentation.</p>
 </div>
 </div>
 </div>
