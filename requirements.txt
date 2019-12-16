@@ -16,5 +16,5 @@ pkg-resources==0.0.0
 protobuf==3.5.2.post1
 six==1.11.0
 tensorboard==1.8.0
-tensorflow-gpu==1.8.0
+tensorflow-gpu==1.15.0
 termcolor==1.1.0
